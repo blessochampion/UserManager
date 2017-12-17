@@ -1,0 +1,19 @@
+version: '3'
+services:
+    test-app:
+        image: test-app
+        build: .
+        command: npm start
+        ports:
+          - "3000:3000"
+        volumes:
+          - .:/usr/src/app
+          - /usr/src/app/node_modules
+        depends_on:
+          - "database"
+    database:
+        image: mongo:latest
+        ports:
+          - "27017:27017"
+        env_file:
+          - .env
